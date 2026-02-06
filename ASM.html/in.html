@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ASM GD1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            background-color: rgb(252, 252, 252);
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url("./img/anh-genshin-impact-cho-may-tinh_082121100.jpg");
+            background-size: cover;
+            background-position: center 20%;
+            color: white;
+            text-align: center;
+            padding: 150px 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+        }
+
+        header h1 {
+            font-size: 48px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: rgb(255, 255, 175);
+        }
+
+        header p {
+            margin-top: 15px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #1e272e;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 18px 25px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: rgb(255, 255, 71);
+            color: #1e272e;
+        }
+
+        section {
+            padding: 80px 10%;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+            text-transform: uppercase;
+            color: rgb(57, 34, 34);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: rgb(255, 255, 75);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .about-img {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-img img {
+            width: 100%;
+            border-radius: 15px;
+            border: 5px solid rgb(112, 112, 50);
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: 0.4s;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .price {
+            color: rgb(152, 46, 46);
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .btn-buy {
+            display: inline-block;
+            background: rgb(105, 17, 17);
+            color: white;
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid rgb(255, 255, 255);
+            text-align: center;
+        }
+
+        th {
+            background: rgb(146, 146, 0);
+            color: rgb(47, 14, 14);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid rgb(255, 86, 86);
+            border-radius: 5px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: rgb(255, 255, 141);
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        footer {
+            background: rgb(39, 33, 33);
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 32px; }
+            section { padding: 50px 5%; }
+            .about-container { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>GENSHIN SHOP </h1>
+        <p>Chào mừng đến với cửa hàng của <strong>tôi</strong></p>
+        <p>Uy Tín - Chất Lượng - Giao Dịch Tức Thì</p>
+    </header>
+
+    <nav>
+        <a href="#about">GIỚI THIỆU</a>
+        <a href="#products">DANH SÁCH ACC</a>
+        <a href="#service">DỊCH VỤ</a>
+        <a href="#contact">LIÊN HỆ</a>
+    </nav>
+
+    <section id="about">
+        <h2>Về Chúng Tôi</h2>
+        <div class="about-container">
+            <div class="about-img">
+                <img src="./img/anh-genshin-impact-cho-may-tinh_082121100.jpg" alt="Genshin Characters">
+            </div>
+            <div class="about-text">
+                <h3>Shop Acc Nguyễn Văn Hiệu</h3>
+                <p>Chúng tôi là đơn vị hàng đầu cung cấp tài khoản Genshin Impact tại Việt Nam. Với kho tài khoản đa dạng từ Starter đến các acc VIP đầy đủ nhân vật 5 sao.</p>
+                <br>
+                <p>Cam kết bảo mật 100%, hỗ trợ đổi thông tin nhanh chóng và bảo hành trọn đời cho mọi giao dịch.</p>
+                <br>
+                <p>Sinh viên thực hiện: <strong>Nguyễn Văn Hiệu</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" style="background-color: #f9f9f9;">
+        <h2>Kho Tài Khoản Hot</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="./img/z7438144159209_8b30952777a7f43a797700f747a74afb.jpg" alt="Acc 1">
+                <div class="product-info">
+                    <h4>Acc Raiden Shogun C2</h4>
+                    <p>AR 56 | Server Asia | 15 Hero 5 sao</p>
+                    <p class="price">2.500.000đ</p>
+                    <a href="#" class="btn-buy">XEM CHI TIẾT</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="./img/z7438147887475_a9642e1eccc6ce21660c898990f080e4.jpg" alt="Acc 2">
+                <div class="product-info">
+                    <h4>Acc Zhongli + Hutao</h4>
+                    <p>AR 52 | Server Asia | Full Nham/Hỏa</p>
+                    <p class="price">1.200.000đ</p>
+                    <a href="#" class="btn-buy">XEM CHI TIẾT</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="./img/z7438150895314_cdba3cdba9da3a7c99266b35e48c36a4.jpg" alt="Acc 3">
+                <div class="product-info">
+                    <h4>Acc Starter Furina</h4>
+                    <p>AR 10 | Server Asia | Chưa liên kết</p>
+                    <p class="price">5.000.000đ</p>
+                    <a href="#" class="btn-buy">XEM CHI TIẾT</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="service">
+        <h2>Bảng Giá Cày Thuê</h2>
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dịch vụ</th>
+                        <th>Chi tiết</th>
+                        <th>Giá (VNĐ)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cày ủy thác</td>
+                        <td>Làm daily + Xả nhựa trong 1 tháng</td>
+                        <td>150.000</td>
+                    </tr>
+                    <tr>
+                        <td>Dọn map Fontaine</td>
+                        <td>Mở toàn bộ rương và thần đồng</td>
+                        <td>300.000</td>
+                    </tr>
+                    <tr>
+                        <td>La Hoàn 36 sao</td>
+                        <td>Đánh từ tầng 9 đến tầng 12</td>
+                        <td>80.000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="contact" style="background-color: #f9f9f9;">
+        <h2>Liên Hệ Hỗ Trợ</h2>
+        <div class="contact-form">
+            <form>
+                <input type="text" placeholder="Họ và tên của bạn" required>
+                <input type="email" placeholder="Email liên hệ" required>
+                <textarea rows="5" placeholder="Bạn cần tìm acc như thế nào hoặc cần hỗ trợ gì?" required></textarea>
+                <button type="submit" class="btn-submit">GỬI YÊU CẦU</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 - Assignment Xây dựng trang web [cite: 17]</p>
+        <p>Thực hiện bởi: <strong>Nguyễn Văn Hiệu</strong></p>
+        <p>FPT Polytechnic - Education [cite: 1, 2]</p>
+    </footer>
+
+</body>
+
+</html>
